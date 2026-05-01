@@ -33,6 +33,7 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  -webkit-text-size-adjust: 100%; /* prevent iOS zoom */
 }
 
 body {
@@ -45,6 +46,7 @@ body {
   overflow-x: hidden;
   width: 100%;
   max-width: 100vw;
+  -webkit-overflow-scrolling: touch; /* smooth iOS scroll */
 }
 
 a { color: inherit; text-decoration: none; }
@@ -1311,6 +1313,7 @@ kbd {
   color: var(--d-text);
   border-radius: 22px;
   max-width: 940px;
+  margin: 0 auto;
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.04);
@@ -1501,13 +1504,20 @@ img, svg, video { max-width: 100%; height: auto; }
 @media (max-width: 760px) {
   .container { padding: 0 20px; }
   .hero {
-    padding: 96px 0 56px;
+    padding: 100px 0 60px;
     text-align: center;
+    min-height: auto;
   }
-  h1 { font-size: 38px; }
+  h1 { font-size: 40px; line-height: 1.08; letter-spacing: -0.035em; }
   h2 { font-size: 30px; }
-  .lede { font-size: 15px; margin-left: auto; margin-right: auto; }
+  .lede {
+    font-size: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 480px;
+  }
 
+  .hero-grid { gap: 36px; }
   .eyebrow { margin-bottom: 18px; }
   .cta-row { justify-content: center; }
   .trust-row { justify-content: center; }
@@ -1516,16 +1526,46 @@ img, svg, video { max-width: 100%; height: auto; }
   .why-grid { grid-template-columns: 1fr; gap: 14px; }
   .why-card { padding: 26px 22px; }
 
-  /* Drop the browser frame on mobile — show a clean standalone popup card */
-  .hero-art { margin-top: 32px; display: flex; justify-content: center; }
+  /* Drop the browser frame on mobile — show a glowing standalone popup card */
+  .hero-art {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
+  /* Glow halo behind the mobile popup card */
+  .hero-art::before {
+    content: "";
+    position: absolute;
+    inset: -40px;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(99, 102, 241, 0.25),
+      rgba(236, 72, 153, 0.15) 40%,
+      transparent 70%
+    );
+    pointer-events: none;
+    z-index: 0;
+    animation: glowPulse 4s ease-in-out infinite alternate;
+  }
+
+  @keyframes glowPulse {
+    0%   { opacity: 0.7; transform: scale(0.95); }
+    100% { opacity: 1; transform: scale(1.05); }
+  }
+
   .browser {
     background: transparent;
     border: 0;
     box-shadow: none;
     width: 100%;
-    max-width: 360px;
+    max-width: 320px;
     transform: none;
     animation: none;
+    overflow: visible;
+    position: relative;
+    z-index: 1;
   }
   .browser:hover { transform: none; }
   .browser-bar { display: none; }
@@ -1535,22 +1575,27 @@ img, svg, video { max-width: 100%; height: auto; }
   }
   .page-blur { display: none; }
 
-  /* Make the hover-popup the star — clean standalone card */
+  /* Make the hover-popup the star — clean standalone card with subtle tilt */
   .hover-popup {
     position: static;
     width: 100%;
     max-width: 100%;
     margin: 0 auto;
-    transform: none;
+    transform: rotate(-1deg);
     background: var(--d-surface);
     border: 1px solid var(--d-line);
-    border-radius: 16px;
+    border-radius: 18px;
     padding: 18px;
     box-shadow:
-      0 24px 48px -16px rgba(0, 0, 0, 0.6),
+      0 32px 60px -16px rgba(0, 0, 0, 0.7),
       0 0 0 1px rgba(255, 255, 255, 0.04),
       inset 0 1px 0 rgba(255, 255, 255, 0.06);
-    animation: floatNoRotate 6s ease-in-out infinite;
+    animation: floatTilt 6s ease-in-out infinite;
+  }
+
+  @keyframes floatTilt {
+    0%, 100% { transform: rotate(-1deg) translateY(0); }
+    50%      { transform: rotate(-1deg) translateY(-10px); }
   }
 
   .install-item { padding: 22px 20px; }

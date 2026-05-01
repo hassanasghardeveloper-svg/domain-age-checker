@@ -38,7 +38,7 @@ DomainAge is a free Chrome extension that shows you a domain's age, expiry, tech
 ### Method 2 — From this repo
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/domain-age-checker.git
+git clone https://github.com/hassanasghardeveloper-svg/domain-age-checker.git
 ```
 
 Then load the cloned folder via `chrome://extensions` → **Load unpacked**.

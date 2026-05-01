@@ -256,6 +256,29 @@ img { display: block; max-width: 100%; }
   100% { transform: translate3d(-1%, 2%, 0) scale(1); opacity: 0.9; }
 }
 
+/* Scroll-down nudge (mobile only) */
+.scroll-cue { display: none; }
+
+@media (max-width: 760px) {
+  .scroll-cue {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin-top: 32px;
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    font-weight: 700;
+    text-transform: uppercase;
+    animation: scrollBob 1.8s ease-in-out infinite;
+  }
+  @keyframes scrollBob {
+    0%, 100% { transform: translateY(0); opacity: 0.55; }
+    50%      { transform: translateY(6px); opacity: 1; }
+  }
+}
+
 .hero-grid {
   display: grid;
   grid-template-columns: 1.05fr 1fr;
@@ -1473,37 +1496,75 @@ img, svg, video { max-width: 100%; height: auto; }
 /* Mobile landscape / small tablet (760px and below) */
 @media (max-width: 760px) {
   .container { padding: 0 20px; }
-  .hero { padding: 92px 0 48px; }
-  h1 { font-size: 36px; }
+  .hero {
+    padding: 96px 0 56px;
+    text-align: center;
+  }
+  h1 { font-size: 38px; }
   h2 { font-size: 30px; }
-  .lede { font-size: 15px; }
+  .lede { font-size: 15px; margin-left: auto; margin-right: auto; }
+
+  .eyebrow { margin-bottom: 18px; }
+  .cta-row { justify-content: center; }
+  .trust-row { justify-content: center; }
+  .micro { text-align: center; }
 
   .why-grid { grid-template-columns: 1fr; gap: 14px; }
   .why-card { padding: 26px 22px; }
 
-  .hero-art { margin-top: 8px; }
+  /* Drop the browser frame on mobile — show a clean standalone popup card */
+  .hero-art { margin-top: 32px; display: flex; justify-content: center; }
   .browser {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
     width: 100%;
-    max-width: 480px;
-    margin: 0 auto;
-  }
-
-  /* Inline the hover-popup so nothing overflows */
-  .hover-popup {
-    position: static;
-    width: 100%;
-    max-width: 100%;
-    margin-top: 14px;
+    max-width: 360px;
     transform: none;
     animation: none;
   }
+  .browser:hover { transform: none; }
+  .browser-bar { display: none; }
   .browser-body {
-    padding: 16px 14px;
+    padding: 0;
     min-height: auto;
   }
   .page-blur { display: none; }
 
+  /* Make the hover-popup the star — clean standalone card */
+  .hover-popup {
+    position: static;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    transform: none;
+    background: var(--d-surface);
+    border: 1px solid var(--d-line);
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow:
+      0 24px 48px -16px rgba(0, 0, 0, 0.6),
+      0 0 0 1px rgba(255, 255, 255, 0.04),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    animation: floatNoRotate 6s ease-in-out infinite;
+  }
+
   .install-item { padding: 22px 20px; }
+}
+
+/* Tap feedback for all touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .why-card:active,
+  .mini:active,
+  .install-item:active,
+  .feature:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+  .btn:active {
+    transform: scale(0.96);
+    transition: transform 0.1s ease;
+  }
 }
 
 /* Mobile portrait (600px and below) */
@@ -1511,7 +1572,7 @@ img, svg, video { max-width: 100%; height: auto; }
   .container { padding: 0 18px; }
   .nav-inner { padding: 14px 18px; }
 
-  h1 { font-size: 32px; letter-spacing: -0.03em; line-height: 1.1; }
+  h1 { font-size: 34px; letter-spacing: -0.03em; line-height: 1.08; }
   h2 { font-size: 26px; }
   .block-text h3 { font-size: 22px; }
   .lede { font-size: 15px; max-width: 100%; }
@@ -1557,14 +1618,18 @@ img, svg, video { max-width: 100%; height: auto; }
   .eyebrow { font-size: 11px; padding: 5px 11px; }
   .micro { font-size: 11px; }
 
-  /* Hero art tweaks */
-  .browser { max-width: 100%; }
-  .browser-bar { padding: 8px 12px; gap: 4px; }
-  .browser-url { font-size: 10px; padding: 3px 10px; margin-left: 8px; }
-  .dot { width: 8px; height: 8px; }
+  /* Hero popup card on mobile — pump up the number */
+  .hover-popup { padding: 20px; max-width: 320px; margin: 0 auto; }
+  .hp-num { font-size: 56px; }
+  .hp-domain { font-size: 14px; }
+  .hp-fav { width: 32px; height: 32px; border-radius: 8px; }
+  .hp-hero { padding: 18px 14px 14px; }
+  .hp-tech { gap: 6px; }
+  .hp-tech .chip { font-size: 11px; padding: 3px 9px; }
 
-  .hp-num { font-size: 40px; }
-  .hp-domain { font-size: 12px; }
+  /* Showcase mockup cards — more prominent */
+  .card-light { max-width: 100%; }
+  .cl-num { font-size: 60px; }
 
   /* Strip on small */
   .strip { padding: 24px 0; }

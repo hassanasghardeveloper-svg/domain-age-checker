@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Domain Age</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+
+<body>
+  <div class="app">
+    <div class="brand-row">
+      <div class="favicon-wrap">
+        <img id="favicon" alt="" />
+      </div>
+      <div class="brand-text">
+        <span class="brand-label">Domain</span>
+        <span id="domain" class="brand-name">—</span>
+      </div>
+      <div class="brand-actions">
+        <button type="button" id="pinBtn" class="iconbtn" title="Add to watchlist">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polygon
+              points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+            </polygon>
+          </svg>
+        </button>
+        <button type="button" id="copyBtn" class="iconbtn" title="Copy summary">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+        </button>
+        <button type="button" id="recheck" class="iconbtn" title="Refresh">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+          </svg>
+        </button>
+        <button type="button" id="settingsBtn" class="iconbtn" title="Settings">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <section id="history" class="history hidden">
+      <div class="history-head">
+        <span>Recent</span>
+        <button id="historyClear" class="history-clear" title="Clear history">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.4"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div id="historyList" class="history-list"></div>
+    </section>
+
+    <section id="watchlist" class="watchlist hidden">
+      <div class="watchlist-head">
+        <span>Watchlist</span>
+        <span id="watchlistCount" class="watchlist-count">0</span>
+      </div>
+      <div id="watchlistList" class="watchlist-list"></div>
+    </section>
+
+    <main id="result" class="hidden">
+      <section class="hero">
+        <div class="hero-num" id="ageYears">—</div>
+        <div class="hero-unit" id="ageUnit">years old</div>
+        <div class="hero-sub" id="ageSub">— months · — days</div>
+      </section>
+
+      <section class="timeline">
+        <div class="tl-track">
+          <div class="tl-fill" id="tlFill"></div>
+          <div class="tl-dot tl-dot-start"></div>
+          <div class="tl-dot tl-dot-end"></div>
+          <div class="tl-now" id="tlNow"></div>
+        </div>
+        <div class="tl-meta">
+          <div class="tl-meta-item">
+            <span class="tl-label">Registered</span>
+            <span id="created" class="tl-val">—</span>
+          </div>
+          <div class="tl-meta-item tl-meta-end">
+            <span class="tl-label">Expires</span>
+            <span id="expires" class="tl-val">—</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="actions">
+        <a id="pagesBtn" class="action-btn" target="_blank" rel="noopener noreferrer" title="See indexed pages on Google">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="7"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <span>On Google</span>
+        </a>
+        <a id="waybackBtn" class="action-btn" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="5" rx="1"></rect>
+            <path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"></path>
+            <line x1="10" y1="14" x2="14" y2="14"></line>
+          </svg>
+          <span>Wayback</span>
+        </a>
+        <a id="sslBtn" class="action-btn" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <span>SSL</span>
+        </a>
+      </section>
+
+      <section class="details">
+        <div class="detail">
+          <span class="d-label">Registrar</span>
+          <span id="registrar" class="d-val">—</span>
+        </div>
+        <div class="detail">
+          <span class="d-label">Last updated</span>
+          <span id="updated" class="d-val">—</span>
+        </div>
+        <div class="detail">
+          <span class="d-label">Total days</span>
+          <span id="totalDays" class="d-val">—</span>
+        </div>
+        <div class="detail">
+          <span class="d-label">Site pages</span>
+          <span class="d-val">
+            <button type="button" id="pagesValueBtn" class="d-link">
+              <span id="pagesCount">—</span>
+            </button>
+          </span>
+        </div>
+      </section>
+
+      <section class="details dns">
+        <div class="section-head">DNS</div>
+        <div class="detail">
+          <span class="d-label">IP address</span>
+          <span id="dnsA" class="d-val">—</span>
+        </div>
+        <div class="detail">
+          <span class="d-label">Nameservers</span>
+          <span id="dnsNs" class="d-val">—</span>
+        </div>
+      </section>
+
+      <section class="details tech-section hidden" id="techSection">
+        <div class="section-head">Built with</div>
+        <div id="techStack" class="tech-stack"></div>
+      </section>
+    </main>
+
+    <div id="loading" class="loading">
+      <div class="spinner"></div>
+      <p>Looking up domain…</p>
+    </div>
+
+    <div id="error" class="error hidden">
+      <div class="error-icon">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+      </div>
+      <p id="errorMsg"></p>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+
+</html>

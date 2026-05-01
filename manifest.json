@@ -1,0 +1,54 @@
+{
+  "manifest_version": 3,
+  "name": "DomainAge — Age, Trust & WHOIS",
+  "version": "1.1.0",
+  "description": "Check any domain's age, trust signals, DNS info, and Wayback history at a glance.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "DomainAge · Check Domain Age",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "contextMenus",
+    "storage",
+    "alarms",
+    "notifications",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://rdap.org/*",
+    "https://cloudflare-dns.com/*"
+  ],
+  "optional_host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Alt+Shift+D",
+        "mac": "Alt+Shift+D"
+      },
+      "description": "Open DomainAge to check the current domain"
+    }
+  }
+}

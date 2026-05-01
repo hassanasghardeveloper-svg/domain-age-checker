@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>DomainAge — Settings</title>
+  <link rel="stylesheet" href="options.css" />
+</head>
+
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="hero-icon">
+        <img src="icons/icon128.png" alt="" />
+      </div>
+      <div class="hero-text">
+        <h1>DomainAge</h1>
+        <p>Settings &amp; preferences</p>
+      </div>
+    </header>
+
+    <section class="card">
+      <h2>Appearance</h2>
+
+      <div class="row">
+        <div class="row-text">
+          <div class="row-label">Theme</div>
+          <div class="row-hint">Match system or pick one explicitly</div>
+        </div>
+        <select id="theme" class="select">
+          <option value="auto">Auto (system)</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <div class="row-text">
+          <div class="row-label">Date format</div>
+          <div class="row-hint">How registration / expiry dates are shown</div>
+        </div>
+        <select id="dateFormat" class="select">
+          <option value="short">Short — Jan 15, 2020</option>
+          <option value="long">Long — January 15, 2020</option>
+          <option value="iso">ISO — 2020-01-15</option>
+          <option value="relative">Relative — 5 years ago</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Toolbar Badge</h2>
+
+      <div class="row">
+        <div class="row-text">
+          <div class="row-label">Auto-check on every site</div>
+          <div class="row-hint">
+            Fetches domain age for every site you visit (cached 7 days). Disable
+            for max privacy — badges then only appear after you explicitly open
+            the popup.
+          </div>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="autoFetch" />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="row">
+        <div class="row-text">
+          <div class="row-label">Badge text</div>
+          <div class="row-hint">What appears on the toolbar icon</div>
+        </div>
+        <select id="badgeFormat" class="select">
+          <option value="auto">Auto — NEW · 5m · 5y</option>
+          <option value="years">Years only — 5y / &lt;1y</option>
+          <option value="months">Months — 65m</option>
+          <option value="off">Off — no badge</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Stored Data</h2>
+
+      <div class="row">
+        <div class="row-text">
+          <div class="row-label">Cached domains</div>
+          <div class="row-hint" id="cacheCount">—</div>
+        </div>
+        <button id="clearCache" class="btn btn-danger" type="button">
+          Clear cache
+        </button>
+      </div>
+
+      <div class="row">
+        <div class="row-text">
+          <div class="row-label">Recent history</div>
+          <div class="row-hint" id="historyCount">—</div>
+        </div>
+        <button id="clearHistory" class="btn btn-danger" type="button">
+          Clear history
+        </button>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <span class="version">DomainAge v1.1.0</span>
+      <span id="savedToast" class="saved hidden">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <span>Saved</span>
+      </span>
+    </footer>
+  </main>
+
+  <script src="options.js"></script>
+</body>
+
+</html>

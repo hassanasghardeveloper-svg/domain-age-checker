@@ -1,0 +1,19 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+
+# Generated build artifacts (regenerate with the build command in README)
+# website/DomainAge.zip   # uncomment if you don't want to track it
+
+# Temp scripts
+_gen-*.ps1
+_gen-*.sh

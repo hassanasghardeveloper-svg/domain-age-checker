@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Welcome to DomainAge</title>
+  <link rel="stylesheet" href="welcome.css" />
+  <link rel="icon" href="icons/icon128.png" />
+</head>
+
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="logo-wrap">
+        <img src="icons/icon128.png" alt="DomainAge" class="logo" />
+      </div>
+      <h1>Welcome to DomainAge</h1>
+      <p class="tagline">
+        Check any domain's age, trust signals, and tech stack — right from your toolbar.
+      </p>
+    </section>
+
+    <!--
+      ===== GIF from Giphy =====
+      To swap: visit https://giphy.com, find a GIF, copy its media URL
+      (Share → "GIF Link" or right-click → "Copy image address"),
+      and replace the src below. Direct URLs look like:
+        https://media.giphy.com/media/{ID}/giphy.gif
+        https://i.giphy.com/{ID}.gif
+    -->
+    <section class="gif-stage">
+      <img id="memeGif" class="gif"
+        src="https://media.giphy.com/media/BPJmthQ3YRwD6QqcVD/giphy.gif"
+        alt="Welcome" />
+    </section>
+
+    <div class="cta-row">
+      <button id="tryNow" class="btn btn-primary">Try it now</button>
+      <button id="openSettings" class="btn btn-ghost">Open settings</button>
+    </div>
+  </main>
+
+  <script src="welcome.js"></script>
+</body>
+
+</html>

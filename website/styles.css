@@ -30,7 +30,10 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
 
 body {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -39,6 +42,9 @@ body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
 }
 
 a { color: inherit; text-decoration: none; }
@@ -1398,8 +1404,17 @@ kbd {
 }
 
 /* ============================================================
-   RESPONSIVE
+   RESPONSIVE — mobile-first safety
    ============================================================ */
+
+/* Prevent any descendant from busting horizontal width */
+.container,
+section,
+.hero,
+.nav,
+.footer { max-width: 100%; }
+
+img, svg, video { max-width: 100%; height: auto; }
 
 /* Tablet landscape (1100px and below) */
 @media (max-width: 1100px) {
@@ -1413,11 +1428,12 @@ kbd {
 /* Tablet portrait (960px and below) */
 @media (max-width: 960px) {
   .hero {
-    padding: 110px 0 80px;
+    padding: 110px 0 64px;
     min-height: auto;
     display: block;
   }
-  h1 { font-size: 44px; line-height: 1.08; }
+  h1 { font-size: 42px; line-height: 1.08; }
+  .lede { font-size: 16px; }
 
   .hero-grid,
   .block {
@@ -1448,36 +1464,46 @@ kbd {
   .strip-tlds { gap: 16px 18px; }
 
   .nav-link { display: none; }
-  .nav-right { gap: 12px; }
+  .nav-right { gap: 10px; }
 
-  .why { padding: 72px 0; }
-  .showcase, .install, .faq, .end-cta { padding: 72px 0; }
+  .why { padding: 64px 0; }
+  .showcase, .install, .faq, .end-cta { padding: 64px 0; }
 }
 
 /* Mobile landscape / small tablet (760px and below) */
 @media (max-width: 760px) {
-  .hero { padding: 96px 0 64px; }
-  h1 { font-size: 40px; }
-  h2 { font-size: 32px; }
+  .container { padding: 0 20px; }
+  .hero { padding: 92px 0 48px; }
+  h1 { font-size: 36px; }
+  h2 { font-size: 30px; }
+  .lede { font-size: 15px; }
 
-  .why-grid { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: 1fr; gap: 14px; }
+  .why-card { padding: 26px 22px; }
 
-  .hero-art {
-    margin-top: 8px;
-  }
+  .hero-art { margin-top: 8px; }
   .browser {
-    max-width: 100%;
+    width: 100%;
+    max-width: 480px;
     margin: 0 auto;
   }
-  .hover-popup {
-    width: 220px;
-    right: 12px;
-    top: 16px;
-  }
 
-  .install-item {
-    padding: 22px 20px;
+  /* Inline the hover-popup so nothing overflows */
+  .hover-popup {
+    position: static;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 14px;
+    transform: none;
+    animation: none;
   }
+  .browser-body {
+    padding: 16px 14px;
+    min-height: auto;
+  }
+  .page-blur { display: none; }
+
+  .install-item { padding: 22px 20px; }
 }
 
 /* Mobile portrait (600px and below) */
@@ -1485,33 +1511,25 @@ kbd {
   .container { padding: 0 18px; }
   .nav-inner { padding: 14px 18px; }
 
-  h1 { font-size: 34px; letter-spacing: -0.03em; }
-  h2 { font-size: 28px; }
+  h1 { font-size: 32px; letter-spacing: -0.03em; line-height: 1.1; }
+  h2 { font-size: 26px; }
   .block-text h3 { font-size: 22px; }
-  .lede { font-size: 15px; }
+  .lede { font-size: 15px; max-width: 100%; }
 
-  .hero { padding: 88px 0 56px; }
-  .why { padding: 56px 0; }
-  .showcase, .install, .faq, .end-cta { padding: 56px 0; }
-  .block { padding: 40px 0; gap: 32px; }
+  .hero { padding: 88px 0 40px; }
+  .why { padding: 48px 0; }
+  .showcase, .install, .faq, .end-cta { padding: 48px 0; }
+  .block { padding: 36px 0; gap: 28px; }
   .block:first-of-type { padding-top: 0; }
 
-  .end-cta-card { padding: 48px 22px; border-radius: 14px; }
-  .end-cta-card h2 { font-size: 26px; }
+  .section-head { margin-bottom: 36px; }
+  .section-lede { font-size: 14px; }
 
-  .mini-grid { grid-template-columns: 1fr; }
+  .end-cta-card { padding: 44px 20px; border-radius: 14px; }
+  .end-cta-card h2 { font-size: 24px; }
+  .end-cta-card p { font-size: 14px; }
 
-  .hover-popup {
-    position: relative;
-    top: auto;
-    right: auto;
-    width: 100%;
-    transform: none;
-    animation: none;
-    margin-top: 16px;
-  }
-  .browser-body { padding: 18px 14px; min-height: auto; }
-  .page-blur { display: none; }
+  .mini-grid { grid-template-columns: 1fr; gap: 1px; }
 
   .card-light { padding: 20px; }
   .cl-num { font-size: 52px; }
@@ -1521,46 +1539,78 @@ kbd {
     gap: 12px;
     padding: 20px;
   }
+  .install-step { margin-bottom: 4px; }
 
   .footer-inner {
     flex-direction: column;
     align-items: flex-start;
     gap: 14px;
   }
-  .footer-links { gap: 16px 22px; }
+  .footer-links { gap: 12px 20px; }
 
-  .cta-row { gap: 4px; }
-  .btn { padding: 11px 16px; font-size: 14px; }
-  .btn-primary { width: auto; }
+  .cta-row { gap: 6px; flex-direction: column; align-items: stretch; }
+  .cta-row .btn { width: 100%; justify-content: center; }
+  .btn { padding: 12px 16px; font-size: 14px; white-space: normal; }
+  .btn-link { padding: 10px 6px; }
 
-  .section-head { margin-bottom: 40px; }
-}
+  /* Eyebrow & tagline tightening */
+  .eyebrow { font-size: 11px; padding: 5px 11px; }
+  .micro { font-size: 11px; }
 
-/* Small phones (400px and below) */
-@media (max-width: 400px) {
-  .container { padding: 0 14px; }
-  .nav-inner { padding: 12px 14px; }
+  /* Hero art tweaks */
+  .browser { max-width: 100%; }
+  .browser-bar { padding: 8px 12px; gap: 4px; }
+  .browser-url { font-size: 10px; padding: 3px 10px; margin-left: 8px; }
+  .dot { width: 8px; height: 8px; }
 
-  h1 { font-size: 30px; }
-  h2 { font-size: 24px; }
-  .block-text h3 { font-size: 20px; }
+  .hp-num { font-size: 40px; }
+  .hp-domain { font-size: 12px; }
 
-  .brand span { display: none; }
-  .nav .btn { padding: 8px 14px; font-size: 13px; }
-
-  .end-cta-card { padding: 40px 18px; }
-  .end-cta-card h2 { font-size: 22px; }
-  .btn-lg { padding: 12px 20px; font-size: 14px; }
-
-  .strip-tlds {
-    gap: 10px 14px;
-    font-size: 12px;
-  }
+  /* Strip on small */
+  .strip { padding: 24px 0; }
+  .strip-tlds { gap: 10px 14px; }
   .strip-tlds span { font-size: 13px; }
 
-  .mini { padding: 22px 18px; }
-  .why-card { padding: 26px 22px; }
+  /* Faq */
+  .faq summary { font-size: 15px; padding: 18px 0; padding-right: 32px; }
+  .faq details p { font-size: 13px; padding: 0 0 18px; }
+}
+
+/* Small phones (430px and below — iPhone Pro size and smaller) */
+@media (max-width: 430px) {
+  .container { padding: 0 16px; }
+  .nav-inner { padding: 12px 16px; }
+
+  h1 { font-size: 28px; }
+  h2 { font-size: 22px; }
+  .block-text h3 { font-size: 20px; }
+
+  .brand-logo { width: 32px; height: 32px; }
+  .brand { font-size: 16px; gap: 8px; }
+  .nav .btn { padding: 8px 14px; font-size: 13px; }
+
+  .end-cta-card { padding: 36px 16px; }
+  .end-cta-card h2 { font-size: 22px; }
+  .btn-lg { padding: 12px 18px; font-size: 14px; }
+
+  .strip-tlds { gap: 8px 12px; }
+  .strip-tlds span { font-size: 12px; }
+
+  .mini { padding: 20px 18px; }
+  .why-card { padding: 22px 20px; }
   .install-step { width: 30px; height: 30px; font-size: 13px; }
 
-  .cl-num { font-size: 48px; }
+  .cl-num { font-size: 44px; }
+  .hp-num { font-size: 36px; }
+
+  /* Slim down the section-head spacing */
+  .section-head { margin-bottom: 28px; }
+}
+
+/* Very small phones (360px and below) */
+@media (max-width: 360px) {
+  h1 { font-size: 26px; }
+  .brand span { display: none; }
+  .nav-inner { padding: 10px 12px; }
+  .container { padding: 0 14px; }
 }
